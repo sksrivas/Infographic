@@ -6,7 +6,7 @@ export function jsx(
   type: string | Function | Symbol,
   props: any = {},
 ): JSXElement {
-  return { type, props, key: props.key || null };
+  return { type, props };
 }
 
 export function createFragment(props: FragmentProps = {}): JSXElement {
