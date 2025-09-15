@@ -4,7 +4,10 @@ import { Text } from '@antv/infographic-jsx';
 
 export interface ItemLabelProps extends TextProps {}
 
-export const ItemLabel = (props: ItemLabelProps) => {
+export const ItemLabel = ({
+  children = 'Item Label',
+  ...props
+}: ItemLabelProps) => {
   const defaultProps: TextProps = {
     fontSize: 18,
     fontWeight: 'bold',
@@ -12,6 +15,7 @@ export const ItemLabel = (props: ItemLabelProps) => {
     width: 100,
     height: 26,
     lineHeight: 1.4,
+    children,
   };
   return <Text {...defaultProps} {...props} />;
 };

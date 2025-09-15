@@ -8,10 +8,9 @@ import { FlexLayout } from '../layouts';
 
 export interface TitleProps extends BaseGeometryProps {
   alignHorizontal?: 'left' | 'center' | 'right';
-  titleText?: string;
-  subTitle?: boolean;
-  subTitleText?: string;
-  subTitleLineNumber?: number;
+  title?: string;
+  desc?: string;
+  descLineNumber?: number;
 }
 
 export const Title = (props: TitleProps) => {
@@ -20,10 +19,9 @@ export const Title = (props: TitleProps) => {
     y = 0,
     width = 720,
     alignHorizontal = 'center',
-    titleText = 'Title',
-    subTitle = true,
-    subTitleText = 'Sub Title',
-    subTitleLineNumber = 2,
+    title = 'Title',
+    desc = 'Sub Title',
+    descLineNumber: subTitleLineNumber = 2,
   } = props;
   const MainTitle = (props: TextProps) => {
     const defaultProps: TextProps = {
@@ -37,12 +35,12 @@ export const Title = (props: TitleProps) => {
     };
     return (
       <Text {...defaultProps} {...props}>
-        {titleText}
+        {title}
       </Text>
     );
   };
 
-  const SubTitle = (props: TextProps) => {
+  const Desc = (props: TextProps) => {
     const defaultProps: TextProps = {
       id: 'desc',
       fontSize: 16,
@@ -54,7 +52,7 @@ export const Title = (props: TitleProps) => {
     };
     return (
       <Text {...defaultProps} {...props}>
-        {subTitleText}
+        {desc}
       </Text>
     );
   };
@@ -68,8 +66,8 @@ export const Title = (props: TitleProps) => {
       width={width}
       gap={8}
     >
-      <MainTitle />
-      {subTitle && <SubTitle />}
+      {title && <MainTitle />}
+      {desc && <Desc />}
     </FlexLayout>
   );
 };
