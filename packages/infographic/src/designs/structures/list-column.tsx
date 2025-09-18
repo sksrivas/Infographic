@@ -22,7 +22,9 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
   }
 
   const btnBounds = getElementBounds(<BtnAdd indexKey={'1'} />);
-  const itemBounds = getElementBounds(<Item indexKey={'1'} datum={items[0]} />);
+  const itemBounds = getElementBounds(
+    <Item indexes={[0]} indexKey={'1'} data={data} datum={items[0]} />,
+  );
 
   const btnElements: JSXElement[] = [];
   const itemElements: JSXElement[] = [];
@@ -34,9 +36,10 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
 
     itemElements.push(
       <Item
-        indexKey={indexKey}
+        indexes={[index]}
         id={`item-${indexKey}`}
         datum={item}
+        data={data}
         y={itemY}
         width={width}
         positionV="center"

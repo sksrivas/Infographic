@@ -2,13 +2,15 @@ import { ComponentType } from '@antv/infographic-jsx';
 import type { Data } from '../../types';
 
 export interface BaseItemProps {
-  id?: string;
-  indexKey: string;
-  datum: Data['items'][number];
   x?: number;
   y?: number;
-  positionH?: 'normal' | 'flipped' | 'center';
-  positionV?: 'normal' | 'flipped' | 'center';
+  id?: string;
+  
+  indexes: number[];
+  data: Data;
+  datum: Data['items'][number];
+  positionH?: 'normal' | 'center' | 'flipped';
+  positionV?: 'normal' | 'center' | 'flipped';
   [key: string]: any;
 }
 
