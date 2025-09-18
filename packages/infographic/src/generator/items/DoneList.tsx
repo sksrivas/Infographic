@@ -30,6 +30,7 @@ export const DoneList: ComponentType<DoneListProps> = (props) => {
   return (
     <Group {...restProps}>
       <Path
+        id={getId('shape')}
         x={positionH === 'normal' ? 0 : descWidth + gap}
         fill="#FEA3BF"
         width={iconSize}
