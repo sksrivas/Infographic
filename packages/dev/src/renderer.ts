@@ -1,4 +1,15 @@
-import { Infographic } from '@antv/infographic';
+import {
+  Infographic,
+  loadSVGResource,
+  registerResourceLoader,
+} from '@antv/infographic';
+import { getAsset } from './get-asset';
+
+registerResourceLoader(async (config) => {
+  const { data } = config;
+  const str = await getAsset('icon', data);
+  return loadSVGResource(str);
+});
 
 const container = document.getElementById('root');
 
@@ -16,15 +27,25 @@ const infographic = new Infographic({
     title: 'AntV Infographic',
     desc: 'AntV Infographic is an AI-powered infographic recommendation and generation tool',
     items: [
-      { label: 'AntV G', desc: 'Flexible visualization rendering engine' },
-      { label: 'AntV G2', desc: 'Progressive visualization grammar' },
       {
+        icon: '0-001_v1_lineal',
+        label: 'AntV G',
+        desc: 'Flexible visualization rendering engine',
+      },
+      {
+        icon: '0-013_v1_lineal',
+        label: 'AntV G2',
+        desc: 'Progressive visualization grammar',
+      },
+      {
+        icon: '10-036_v1_lineal',
         label: 'AntV G6',
         desc: 'Simple, easy-to-use, and comprehensive graph visualization engine',
       },
     ],
   },
   themeConfig: {
+    background: 'black',
     palette: [
       '#1783FF',
       '#00C9C9',
