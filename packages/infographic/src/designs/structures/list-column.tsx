@@ -22,9 +22,9 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
     width = titleBounds.width * 0.8;
   }
 
-  const btnBounds = getElementBounds(<BtnAdd indexKey={'1'} />);
+  const btnBounds = getElementBounds(<BtnAdd indexes={[0]} />);
   const itemBounds = getElementBounds(
-    <Item indexes={[0]} indexKey={'1'} data={data} datum={items[0]} />,
+    <Item indexes={[0]} data={data} datum={items[0]} />,
   );
 
   const btnElements: JSXElement[] = [];
@@ -32,13 +32,11 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
 
   const btnAddX = (width - btnBounds.width) / 2;
   items.forEach((item, index) => {
-    const indexKey = `${index + 1}`;
     const itemY = (itemBounds.height + gap) * index;
-
+    const indexes = [index];
     itemElements.push(
       <Item
-        indexes={[index]}
-        id={`item-${indexKey}`}
+        indexes={indexes}
         datum={item}
         data={data}
         y={itemY}
@@ -49,8 +47,7 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
 
     btnElements.push(
       <BtnRemove
-        indexKey={indexKey}
-        id={`btn-remove-${indexKey}`}
+        indexes={indexes}
         x={-btnBounds.width - 10}
         y={itemY + (itemBounds.height - btnBounds.height) / 2}
       />,
@@ -59,14 +56,7 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
     const btnAddY =
       index === 0 ? -btnBounds.height : itemY - gap / 2 - btnBounds.height / 2;
 
-    btnElements.push(
-      <BtnAdd
-        indexKey={indexKey}
-        id={`btn-add-${indexKey}`}
-        x={btnAddX}
-        y={btnAddY}
-      />,
-    );
+    btnElements.push(<BtnAdd indexes={indexes} x={btnAddX} y={btnAddY} />);
   });
 
   if (items.length > 0) {
@@ -74,12 +64,7 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
     const extraAddBtnY = lastItemY + itemBounds.height;
 
     btnElements.push(
-      <BtnAdd
-        indexKey={`${items.length + 1}`}
-        id={`btn-add-${items.length + 1}`}
-        x={btnAddX}
-        y={extraAddBtnY}
-      />,
+      <BtnAdd indexes={[items.length]} x={btnAddX} y={extraAddBtnY} />,
     );
   }
 
