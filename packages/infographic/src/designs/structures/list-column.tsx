@@ -3,6 +3,7 @@ import type { ComponentType, JSXElement } from '@antv/infographic-jsx';
 import { getElementBounds, Group } from '@antv/infographic-jsx';
 import { BtnAdd, BtnRemove, BtnsGroup, ItemsGroup } from '../components';
 import { FlexLayout } from '../layouts';
+import { registerStructure } from './registry';
 import type { BaseStructureProps } from './types';
 
 export interface ListColumnProps extends BaseStructureProps {
@@ -94,3 +95,5 @@ export const ListColumn: ComponentType<ListColumnProps> = (props) => {
     </FlexLayout>
   );
 };
+
+registerStructure('list-column', { component: ListColumn });
