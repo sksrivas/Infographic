@@ -1,9 +1,9 @@
 /** @jsxImportSource @antv/infographic-jsx */
 import { ComponentType, Defs, Group, Rect } from '@antv/infographic-jsx';
 import { ItemDesc, ItemIcon, ItemLabel, ItemValue } from '../components';
+import { getItemId, getItemProps } from '../utils';
 import { registerItem } from './registry';
 import type { BaseItemProps } from './types';
-import { getItemId, getItemProps } from './utils';
 
 export interface CompactCardProps extends BaseItemProps {
   width?: number;

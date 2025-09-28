@@ -11,9 +11,9 @@ import {
 import roundPolygon, { getSegments } from 'round-polygon';
 import tinycolor from 'tinycolor2';
 import { ItemDesc, ItemIcon, ItemLabel } from '../components';
+import { getItemId, getItemProps } from '../utils';
 import { registerItem } from './registry';
 import type { BaseItemProps } from './types';
-import { getItemId, getItemProps } from './utils';
 
 export interface PyramidProps extends BaseItemProps {
   gap?: number;

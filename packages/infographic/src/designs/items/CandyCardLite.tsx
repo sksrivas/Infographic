@@ -2,9 +2,9 @@
 import type { ComponentType } from '@antv/infographic-jsx';
 import { Group, Path } from '@antv/infographic-jsx';
 import { ItemDesc, ItemIcon, ItemLabel } from '../components';
+import { getItemId, getItemProps } from '../utils';
 import { registerItem } from './registry';
 import type { BaseItemProps } from './types';
-import { getItemId, getItemProps } from './utils';
 
 export interface CandyCardLiteProps extends BaseItemProps {
   width?: number;

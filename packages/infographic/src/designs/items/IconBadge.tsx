@@ -8,9 +8,9 @@ import {
 } from '@antv/infographic-jsx';
 import tinycolor from 'tinycolor2';
 import { ItemIcon, ItemLabel } from '../components';
+import { getItemProps } from '../utils';
 import { registerItem } from './registry';
 import type { BaseItemProps } from './types';
-import { getItemProps } from './utils';
 
 export interface IconBadgeProps extends BaseItemProps {
   size?: number;

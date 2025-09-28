@@ -1,9 +1,9 @@
 /** @jsxImportSource @antv/infographic-jsx */
 import { ComponentType, Group, Path } from '@antv/infographic-jsx';
 import { ItemDesc } from '../components';
+import { getItemId, getItemProps } from '../utils';
 import { registerItem } from './registry';
 import type { BaseItemProps } from './types';
-import { getItemId, getItemProps } from './utils';
 
 export interface DoneListProps extends BaseItemProps {
   width?: number;

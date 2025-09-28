@@ -2,9 +2,9 @@
 import { ComponentType, Defs, Group, Rect } from '@antv/infographic-jsx';
 import { ItemDesc, ItemLabel } from '../components';
 import { DropShadow, LinearGradient } from '../defs';
+import { getItemProps } from '../utils';
 import { registerItem } from './registry';
 import type { BaseItemProps } from './types';
-import { getItemProps } from './utils';
 
 export interface PillBadgeProps extends BaseItemProps {
   width?: number;

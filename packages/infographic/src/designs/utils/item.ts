@@ -1,5 +1,5 @@
 import { getItemKeyFromIndexes } from '../../utils';
-import type { BaseItemProps } from './types';
+import type { BaseItemProps } from '../items/types';
 
 export function getItemId(indexes: number[], appendix: string) {
   return `item-${getItemKeyFromIndexes(indexes)}-${appendix}`;
