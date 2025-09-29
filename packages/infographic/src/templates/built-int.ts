@@ -1,0 +1,295 @@
+import { registerTemplate } from './registry';
+import type { TemplateOptions } from './types';
+
+const BUILT_IN_TEMPLATES: Record<string, TemplateOptions> = {
+  'compare-hierarchy-left-right-circle-node-pill-badge': {
+    design: {
+      structure: {
+        type: 'compare-hierarchy-left-right',
+        decoration: 'split-line',
+        surround: false,
+        groupGap: -20,
+      },
+      title: 'default',
+      items: ['circle-node', 'pill-badge'],
+    },
+    themeConfig: {},
+  },
+  'compare-hierarchy-left-right-circle-node-plain-text': {
+    design: {
+      title: 'default',
+      structure: {
+        type: 'compare-hierarchy-left-right',
+        decoration: 'dot-line',
+        flipLeaf: true,
+        groupGap: -20,
+      },
+      items: [{ type: 'circle-node' }, { type: 'plain-text' }],
+    },
+  },
+  'hierarchy-pyramid-rounded-rect-node': {
+    design: {
+      title: 'default',
+      structure: {
+        type: 'hierarchy-pyramid',
+      },
+      items: [{ type: 'rounded-rect-node' }],
+    },
+  },
+  'hierarchy-pyramid-badge-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-pyramid' },
+      items: [{ type: 'badge-card' }],
+    },
+  },
+  'hierarchy-pyramid-compact-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-pyramid' },
+      items: [{ type: 'compact-card' }],
+    },
+  },
+  'hierarchy-tree-compact-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'compact-card' }],
+    },
+  },
+  'hierarchy-tree-badge-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'badge-card' }],
+    },
+  },
+  'hierarchy-tree-icon-badge': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'icon-badge' }],
+    },
+  },
+  'hierarchy-tree-pill-badge': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'pill-badge' }],
+    },
+  },
+  'hierarchy-tree-progress-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'progress-card' }],
+    },
+  },
+  'hierarchy-tree-ribbon-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'ribbon-card' }],
+    },
+  },
+  'hierarchy-tree-rounded-rect-node': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'rounded-rect-node' }],
+    },
+  },
+  'hierarchy-tree-simple': {
+    design: {
+      title: 'default',
+      structure: { type: 'hierarchy-tree' },
+      items: [{ type: 'simple' }],
+    },
+  },
+  'list-column-done-list': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-column' },
+      items: [{ type: 'done-list' }],
+    },
+  },
+  'list-column-vertical-icon-arrow': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-column', gap: -5 },
+      items: [{ type: 'vertical-icon-arrow' }],
+    },
+  },
+  'list-column-pyramid': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-column', gap: 5 },
+      items: [{ type: 'pyramid', width: 600, gap: 5 }],
+    },
+  },
+  'list-grid-badge-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'badge-card' }],
+    },
+  },
+  'list-grid-candy-card-lite': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'candy-card-lite' }],
+    },
+  },
+  'list-grid-chart-column': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'chart-column' }],
+    },
+  },
+  'list-grid-circular-progress': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'circular-progress' }],
+    },
+  },
+  'list-grid-compact-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'compact-card' }],
+    },
+  },
+  'list-grid-done-list': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'done-list' }],
+    },
+  },
+  'list-grid-horizontal-icon-arrow': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid', gap: 0 },
+      items: [{ type: 'horizontal-icon-arrow' }],
+    },
+  },
+  'list-grid-progress-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'progress-card' }],
+    },
+  },
+  'list-grid-ribbon-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'ribbon-card' }],
+    },
+  },
+  'list-grid-simple': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-grid' },
+      items: [{ type: 'simple' }],
+    },
+  },
+  'list-row-chart-column': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-row' },
+      items: [{ type: 'chart-column' }],
+    },
+  },
+  'list-row-circular-progress': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-row' },
+      items: [{ type: 'circular-progress' }],
+    },
+  },
+  'list-row-horizontal-icon-arrow': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-row', gap: 0 },
+      items: [{ type: 'horizontal-icon-arrow' }],
+    },
+  },
+  'relation-circle-circular-progress': {
+    design: {
+      title: 'default',
+      structure: { type: 'relation-circle' },
+      items: [{ type: 'circular-progress' }],
+    },
+  },
+  'relation-circle-icon-badge': {
+    design: {
+      title: 'default',
+      structure: { type: 'relation-circle' },
+      items: [{ type: 'icon-badge' }],
+    },
+  },
+  'sequence-steps-badge-card': {
+    design: {
+      title: 'default',
+      structure: { type: 'sequence-steps' },
+      items: [{ type: 'badge-card' }],
+    },
+  },
+  'sequence-steps-simple': {
+    design: {
+      title: 'default',
+      structure: { type: 'sequence-steps' },
+      items: [{ type: 'simple' }],
+    },
+  },
+  'sequence-timeline-done-list': {
+    design: {
+      title: 'default',
+      structure: { type: 'sequence-timeline' },
+      items: [{ type: 'done-list' }],
+    },
+  },
+  'sequence-timeline-plain-text': {
+    design: {
+      title: 'default',
+      structure: { type: 'sequence-timeline' },
+      items: [{ type: 'plain-text' }],
+    },
+  },
+  'sequence-timeline-rounded-rect-node': {
+    design: {
+      title: 'default',
+      structure: { type: 'sequence-timeline' },
+      items: [{ type: 'rounded-rect-node' }],
+    },
+  },
+  'sequence-timeline-simple': {
+    design: {
+      title: 'default',
+      structure: { type: 'sequence-timeline' },
+      items: [{ type: 'simple' }],
+    },
+  },
+  'list-column-simple-vertical-arrow': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-column', gap: 0 },
+      items: [{ type: 'simple-vertical-arrow' }],
+    },
+  },
+  'list-row-simple-horizontal-arrow': {
+    design: {
+      title: 'default',
+      structure: { type: 'list-row', gap: 0 },
+      items: [{ type: 'simple-horizontal-arrow' }],
+    },
+  },
+};
+
+Object.entries(BUILT_IN_TEMPLATES).forEach(([name, options]) => {
+  registerTemplate(name, options);
+});
