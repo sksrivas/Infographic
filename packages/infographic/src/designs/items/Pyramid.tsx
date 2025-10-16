@@ -88,7 +88,7 @@ export const Pyramid: ComponentType<PyramidProps> = (props) => {
   );
 
   const itemLabelBounds = getElementBounds(itemLabelContent);
-  const descY = itemLabelBounds.y + itemLabelBounds.height;
+  const descY = itemLabelBounds.y + itemLabelBounds.height + 5;
 
   const pyramidColorId = `${themeColors.colorPrimary}-white`;
 

@@ -35,6 +35,7 @@ export const Preview = () => {
       <Form layout="inline">
         <Form.Item label="模板">
           <Select
+            showSearch
             value={template}
             style={{ minWidth: 200 }}
             options={templates.map((value) => ({ label: value, value }))}
