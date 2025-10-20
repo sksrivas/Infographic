@@ -268,6 +268,13 @@ const BUILT_IN_TEMPLATES: Record<string, TemplateOptions> = {
       items: [{ type: 'rounded-rect-node' }],
     },
   },
+  'sequence-ascending-steps': {
+    design: {
+      title: 'default',
+      structure: { type: 'sequence-ascending-steps', vGap: -43, hGap: 12 },
+      items: [{ type: 'l-corner-card' }],
+    },
+  },
   'sequence-timeline-simple': {
     design: {
       title: 'default',
@@ -319,6 +326,7 @@ const BUILT_IN_TEMPLATES: Record<string, TemplateOptions> = {
     },
   },
 };
+
 Object.entries(BUILT_IN_TEMPLATES).forEach(([name, options]) => {
   registerTemplate(name, options);
 });

@@ -8,6 +8,7 @@ export * from './CompactCard';
 export * from './DoneList';
 export * from './HorizontalIconArrow';
 export * from './IconBadge';
+export * from './LCornerCard';
 export * from './LetterCard';
 export * from './PillBadge';
 export * from './PlainText';

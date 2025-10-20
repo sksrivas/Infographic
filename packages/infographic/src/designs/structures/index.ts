@@ -11,6 +11,7 @@ export * from './list-waterfall';
 export * from './registry';
 export * from './relation-circle';
 export * from './relation-network';
+export * from './sequence-ascending-steps';
 export * from './sequence-steps';
 export * from './sequence-timeline';
 export type * from './types';
