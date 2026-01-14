@@ -168,3 +168,23 @@ onBeforeUnmount(() => {
 });
 </script>
 ```
+
+### Server-Side Rendering {#server-side-rendering}
+
+Using the `renderToString` method provided by `@antv/infographic/ssr`, you can render infographics in non-browser environments and output SVG strings:
+
+```js
+import { renderToString } from '@antv/infographic/ssr';
+
+const syntax = `infographic list-row-simple-horizontal-arrow
+data
+  items
+    - label Step 1
+      desc Start
+    - label Step 2
+      desc In Progress
+    - label Step 3
+      desc Complete`;
+
+const svg = await renderToString(syntax);
+```

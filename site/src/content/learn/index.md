@@ -168,3 +168,23 @@ onBeforeUnmount(() => {
 });
 </script>
 ```
+
+### 服务端渲染 {#服务端渲染}
+
+通过 `@antv/infographic/ssr` 提供的 `renderToString` 方法，可以在非浏览器环境下渲染信息图并输出 SVG 字符串：
+
+```js
+import { renderToString } from '@antv/infographic/ssr';
+
+const syntax = `infographic list-row-simple-horizontal-arrow
+data
+  items
+    - label 步骤 1
+      desc 开始
+    - label 步骤 2
+      desc 进行中
+    - label 步骤 3
+      desc 完成`;
+
+const svg = await renderToString(syntax);
+```

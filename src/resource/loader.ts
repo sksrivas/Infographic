@@ -108,7 +108,9 @@ function getFallbackQuery(
 ): string {
   const defaultQuery = scene === 'illus' ? 'illustration' : 'icon';
   const datumQuery =
-    normalizeQuery(datum?.label) || normalizeQuery(datum?.desc);
+    normalizeQuery(cfg.data) ||
+    normalizeQuery(datum?.label) ||
+    normalizeQuery(datum?.desc);
   if (datumQuery) return datumQuery;
 
   const data = normalizeQuery(cfg.data);
