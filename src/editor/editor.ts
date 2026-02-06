@@ -1,17 +1,20 @@
 import type { ParsedInfographicOptions } from '../options';
 import type { IEventEmitter } from '../types';
-import { parsePadding, setSVGPadding } from '../utils';
 import {
   CommandManager,
   InteractionManager,
   PluginManager,
   StateManager,
 } from './managers';
+import { SyncRegistry } from './managers/sync-registry';
+import { CoreSyncPlugin } from './plugins';
 import type {
   ICommandManager,
   IEditor,
   IPluginManager,
   IStateManager,
+  ISyncRegistry,
+  SyncHandler,
 } from './types';
 
 export class Editor implements IEditor {
@@ -19,6 +22,7 @@ export class Editor implements IEditor {
   commander: ICommandManager;
   plugin: IPluginManager;
   interaction: InteractionManager;
+  syncRegistry: ISyncRegistry;
 
   constructor(
     private emitter: IEventEmitter,
@@ -35,6 +39,14 @@ export class Editor implements IEditor {
     const plugin = new PluginManager();
     const interaction = new InteractionManager();
 
+    const syncRegistry = new SyncRegistry(() => state.getOptions());
+
+    this.commander = commander;
+    this.state = state;
+    this.plugin = plugin;
+    this.interaction = interaction;
+    this.syncRegistry = syncRegistry;
+
     commander.init({ state, emitter });
     state.init({
       emitter,
@@ -42,6 +54,10 @@ export class Editor implements IEditor {
       commander,
       options,
     });
+    // Load core plugin: CoreSyncPlugin (handles viewBox/padding sync)
+    const corePlugin = new CoreSyncPlugin();
+    const userPlugins = options.plugins || [];
+
     plugin.init(
       {
         emitter,
@@ -49,7 +65,7 @@ export class Editor implements IEditor {
         commander,
         state,
       },
-      options.plugins,
+      [corePlugin, ...userPlugins],
     );
     interaction.init({
       emitter,
@@ -58,25 +74,14 @@ export class Editor implements IEditor {
       state,
       interactions: options.interactions,
     });
+  }
 
-    emitter.on('viewBox:change', (payload: { viewBox?: string }) => {
-      if (payload.viewBox) {
-        document.setAttribute('viewBox', payload.viewBox);
-      } else {
-        document.removeAttribute('viewBox');
-      }
-    });
-
-    emitter.on('padding:change', (payload: { padding?: number | number[] }) => {
-      if (payload.padding !== undefined) {
-        setSVGPadding(document, parsePadding(payload.padding));
-      }
-    });
-
-    this.commander = commander;
-    this.state = state;
-    this.plugin = plugin;
-    this.interaction = interaction;
+  registerSync(
+    path: string,
+    handler: SyncHandler,
+    options?: { immediate?: boolean },
+  ) {
+    return this.syncRegistry.register(path, handler, options);
   }
 
   getDocument() {
@@ -89,5 +94,6 @@ export class Editor implements IEditor {
     this.plugin.destroy();
     this.commander.destroy();
     this.state.destroy();
+    this.syncRegistry.destroy();
   }
 }
