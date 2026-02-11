@@ -3,7 +3,6 @@ import AlibabaPuHuiTi from 'measury/fonts/AlibabaPuHuiTi-Regular';
 import { JSXNode, TextProps } from '../jsx';
 import { DEFAULT_FONT } from '../renderer';
 import { encodeFontFamily } from './font';
-import { isBrowser } from './is-browser';
 
 let FONT_EXTEND_FACTOR = 1.01;
 
@@ -13,17 +12,19 @@ export const setFontExtendFactor = (factor: number) => {
 
 registerFont(AlibabaPuHuiTi);
 
-let canvasContext: CanvasRenderingContext2D | null = null;
+let canvasContext: CanvasRenderingContext2D | null | undefined = undefined;
 let measureSpan: HTMLSpanElement | null = null;
 
 function getCanvasContext() {
-  if (canvasContext) return canvasContext;
+  if (typeof document === 'undefined') return null;
+  if (canvasContext !== undefined) return canvasContext;
   const canvas = document.createElement('canvas');
   canvasContext = canvas.getContext('2d');
   return canvasContext;
 }
 
 function getMeasureSpan() {
+  if (typeof document === 'undefined') return null;
   if (!document.body) return null;
   if (measureSpan) return measureSpan;
   measureSpan = document.createElement('span');
@@ -98,6 +99,7 @@ function measureTextInBrowser(
   span.style.lineHeight = `${lineHeightPx}px`;
   span.textContent = content;
   const rect = span.getBoundingClientRect();
+  if (content && rect.width <= 0 && rect.height <= 0) return null;
   return { width: rect.width, height: rect.height };
 }
 
@@ -126,9 +128,7 @@ export function measureText(
     lineHeight,
   };
   const fallback = () => measure(content, options);
-  const metrics = isBrowser()
-    ? (measureTextInBrowser(content, options) ?? fallback())
-    : fallback();
+  const metrics = measureTextInBrowser(content, options) ?? fallback();
 
   // 额外添加 1% 宽高
   return {
